@@ -1,0 +1,42 @@
+{
+	"name": "grunt-vagrant-ssh",
+	"description": "",
+	"version": "0.1.0",
+	"homepage": "https://github.com/carldanley/grunt-vagrant-ssh",
+	"author": {
+		"name": "Carl Danley",
+		"url": "https://github.com/carldanley/grunt-vagrant-ssh"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:carldanley/grunt-vagrant-ssh.git"
+	},
+	"bugs": {
+		"url": "https://github.com/carldanley/grunt-vagrant-ssh/issues"
+	},
+	"engines": {
+		"node": ">= 0.8.0"
+	},
+	"dependencies": {
+		"underscore": "~1.6.0"
+	},
+	"devDependencies": {
+		"grunt": "~0.4.0",
+		"grunt-contrib-jshint": "~0.8.0"
+	},
+	"peerDependencies": {
+		"grunt": "~0.4.0"
+	},
+	"keywords": [
+		"gruntplugin",
+		"grunt",
+		"vvv",
+		"vagrant",
+		"vagrant ssh",
+		"ssh"
+	],
+	"files": [
+		"tasks",
+		"LICENSE-MIT"
+	]
+}
