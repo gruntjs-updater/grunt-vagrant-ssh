@@ -6,16 +6,28 @@ var fs = require( 'fs' );
 
 exports.init = function( grunt ) {
 
-	exports.runVagrantCommands = function( dir, commands, flags, callback ) {
-		var command = 'cd ' + dir + ' && vagrant ssh -c "' + commands.join( ' && ' ) + '" -- ' + flags.join( ' ' );
-		exec( command, function( error, stdout, stderror ) {
-			console.log( 'here' );
-		} );
-	};
+	exports.run = function( data, callback ) {
+		var command = 'vagrant ssh -c "' + data.commands.join( ' && ' ) + '" -- ' + data.flags.join( ' ' );
+		exec( command, { cwd: data.path }, function( error, stdout, stderror ) {
+			if( error ) {
+				if( stderror.indexOf( 'VM must be running to open SSH connection' ) > -1 ) {
+					grunt.warn( 'Please start vagrant in the directory ' + data.path + ' before trying to run vagrantssh...' );
+				} else if( stderror.indexOf( 'A Vagrant environment is required to run this command' ) > -1 ) {
+					grunt.warn( 'Vagrant was not found in the specified path: ' + data.path + '...' );
+				}
 
-	exports.pathContainsVagrantFile = function( dir ) {
-		dir = path.normalize( dir + '/Vagrantfile' );
-		return fs.existsSync( dir );
+				if( typeof data.callback === 'function' ) {
+					data.callback( grunt, false );
+				}
+
+				return callback();
+			}
+
+			if( typeof data.callback === 'function' ) {
+				data.callback( grunt, stdout );
+			}
+			return callback();
+		} );
 	};
 
 	return exports;

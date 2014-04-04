@@ -9,17 +9,14 @@ module.exports = function( grunt ) {
 		var defaultOptions = {
 			path: './',
 			commands: [],
-			flags: [ '-t', '-A' ]
+			flags: [ '-t', '-A' ],
+			callback: function( grunt, output ) {
+				grunt.log.writeln( 'Output: ' + output );
+			}
 		};
 		var data = _.extend( defaultOptions, scope.data );
 
-		// make sure the path that was specified contains a valid Vagrantfile first
-		if( ! vagrantssh.pathContainsVagrantFile( data.path  ) ) {
-			grunt.warn( 'Vagrant was not found in your specified path: ' + data.path );
-			return;
-		}
-
 		// now attempt running the command
-		vagrantssh.runVagrantCommands( data.path, data.commands, data.flags );
+		vagrantssh.run( data, scope.async() );
 	} );
 };
