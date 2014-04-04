@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = function(grunt) {
-	grunt.initConfig({
+module.exports = function( grunt ) {
+	grunt.initConfig( {
 		jshint: {
 			all: [
 				'Gruntfile.js',
@@ -11,25 +11,20 @@ module.exports = function(grunt) {
 				jshintrc: '.jshintrc'
 			},
 		},
-		watch: {
-			all: {
-				files: ['<%= jshint.all %>'],
-				tasks: ['jshint']
-			},
-		},
 		vagrantssh: {
 			test: {
+				path: '/Users/carldanley/Sites/vagrant/.vvv/',
 				commands: [
 					'cd /srv/www/',
-					'echo "testing" > ./test-vagrant-ssh.txt'
+					'echo "testing" > ./test-vagrant-ssh.txt',
 					'cd /',
 					'cat /srv/www/test-vagrant-ssh.txt'
 				]
 			}
 		}
-	});
+	} );
 
-	grunt.loadTasks('tasks');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.registerTask('default', ['jshint', 'vagrantssh:']);
+	grunt.loadTasks( 'tasks' );
+	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+	grunt.registerTask( 'default', [ 'jshint', 'vagrantssh:test' ] );
 };
